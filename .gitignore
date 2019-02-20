@@ -1,0 +1,10 @@
+.DS_Store
+*/.DS_Store
+Thumbs.db
+package-lock.json
+db.json
+debug.log
+node_modules/
+public/
+.deploy/
+
