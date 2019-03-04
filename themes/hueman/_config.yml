@@ -10,7 +10,7 @@ customize:
     logo:
         width: 165
         height: 60
-        url: images/logo-explore_3.png
+        url: images/generatedtext_b.png
     theme_color:  '#006bde'
     highlight: androidstudio
     sidebar: left # sidebar position, options: left, right
