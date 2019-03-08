@@ -83,3 +83,7 @@ deploy:
   branch: master
   message: "."
 
+
+# Mathjax Enable
+mathjax:
+  enable: true
