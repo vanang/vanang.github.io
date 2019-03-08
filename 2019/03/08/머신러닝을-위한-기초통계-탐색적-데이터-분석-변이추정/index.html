@@ -12,17 +12,17 @@
     
         <meta name="keywords" content="">
     
-    <meta name="description" content="# 변이 추정  변이는 영문으로는 Variability로 표시하며, 의미적으로는 데이터 들이 얼마나 밀집해있는지 퍼져있는 지를 나타내는 **산포도(Disperson)** 을 보여주는 값입니다.  이와 관련하여 아래의 개념들을 함께 사용됩니다. * 편차(Deviation): 관측값과 위치 추정값 사이의 차이.  모집단의 경우 **오차(Error)** 라고">
+    <meta name="description" content="변이 추정변이는 영문으로는 Variability로 표시하며, 의미적으로는 데이터 들이 얼마나 밀집해있는지 퍼져있는 지를 나타내는 산포도(Disperson) 을 보여주는 값입니다.  이와 관련하여 아래의 개념들을 함께 사용됩니다.  편차(Deviation): 관측값과 위치 추정값 사이의 차이.  모집단의 경우 오차(Error) 라고 표시하고, 표본의 경우 잔">
 <meta property="og:type" content="article">
 <meta property="og:title" content="머신러닝을 위한 기초통계: 탐색적 데이터 분석 변이추정">
 <meta property="og:url" content="https://vanang.github.io/2019/03/08/머신러닝을-위한-기초통계-탐색적-데이터-분석-변이추정/index.html">
 <meta property="og:site_name" content="Unknowns">
-<meta property="og:description" content="# 변이 추정  변이는 영문으로는 Variability로 표시하며, 의미적으로는 데이터 들이 얼마나 밀집해있는지 퍼져있는 지를 나타내는 **산포도(Disperson)** 을 보여주는 값입니다.  이와 관련하여 아래의 개념들을 함께 사용됩니다. * 편차(Deviation): 관측값과 위치 추정값 사이의 차이.  모집단의 경우 **오차(Error)** 라고">
+<meta property="og:description" content="변이 추정변이는 영문으로는 Variability로 표시하며, 의미적으로는 데이터 들이 얼마나 밀집해있는지 퍼져있는 지를 나타내는 산포도(Disperson) 을 보여주는 값입니다.  이와 관련하여 아래의 개념들을 함께 사용됩니다.  편차(Deviation): 관측값과 위치 추정값 사이의 차이.  모집단의 경우 오차(Error) 라고 표시하고, 표본의 경우 잔">
 <meta property="og:locale" content="ko">
-<meta property="og:updated_time" content="2019-03-08T04:15:41.482Z">
+<meta property="og:updated_time" content="2019-03-08T04:28:57.312Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="머신러닝을 위한 기초통계: 탐색적 데이터 분석 변이추정">
-<meta name="twitter:description" content="# 변이 추정  변이는 영문으로는 Variability로 표시하며, 의미적으로는 데이터 들이 얼마나 밀집해있는지 퍼져있는 지를 나타내는 **산포도(Disperson)** 을 보여주는 값입니다.  이와 관련하여 아래의 개념들을 함께 사용됩니다. * 편차(Deviation): 관측값과 위치 추정값 사이의 차이.  모집단의 경우 **오차(Error)** 라고">
+<meta name="twitter:description" content="변이 추정변이는 영문으로는 Variability로 표시하며, 의미적으로는 데이터 들이 얼마나 밀집해있는지 퍼져있는 지를 나타내는 산포도(Disperson) 을 보여주는 값입니다.  이와 관련하여 아래의 개념들을 함께 사용됩니다.  편차(Deviation): 관측값과 위치 추정값 사이의 차이.  모집단의 경우 오차(Error) 라고 표시하고, 표본의 경우 잔">
     
 
     
@@ -169,70 +169,32 @@
         
         
         <div class="article-entry" itemprop="articleBody">
-            
-# 변이 추정
-
-변이는 영문으로는 Variability로 표시하며, 의미적으로는 데이터 들이 얼마나 밀집해있는지 퍼져있는 지를 나타내는 **산포도(Disperson)** 을 보여주는 값입니다.  이와 관련하여 아래의 개념들을 함께 사용됩니다.
-* 편차(Deviation): 관측값과 위치 추정값 사이의 차이.  모집단의 경우 **오차(Error)** 라고 표시하고, 표본의 경우 **잔차(Residual)** 로 사용하기도 한다.
-* 분산(Variance): 편차를 제곱한 값들의 평균.  동일한 의미로 **평균 제곱 오차(Mean Square Error)** 가 사용되기도 한다.
-* 표준편차(Standard Deviation): 분산에서 제곱근을 취한 값.  동일한 의미로 **Root Mean Square Error**로 사용되기도 한다.
-* 평균절대편차(Mean Absolute Deviation): 평균값과 편차의 절대값의 평균이다.  **Average Absolute Deviation(AAD)** 으로 불리기도 한다.
-* 중위절대편차(Median Absolute Deviation from the Median): 중간값과 
-
-
-
-> **NOTE** : 오차와 잔차
-> 통계분야에서 오차(Error)는 모집단 내에서 대표값과 관측값의 차이를 말하고,
-> 잔차(Residual)은 표본내에서 대표값과 관측값의 차이를 말한다.  그러나, 두 개의 용어는 다소 유의어처럼 섞여서 사용되는 경향이 있는 것으로 보인다.
-
-## 표준편차와 추정값
-
-편차는 '데이터가 평균으로 부터 얼마나 퍼져있는지'를 표현한다.  변이를 측정하는 방법은 이 편차들의 대표값을 추정하는 것이다.  참고로 **평균**과 같은 방법을 대표값으로 사용하면 양-음의 값이 상쇄되어 0이 되기 때문에 대표값으로 사용할수 없다. (편차의 의미를 생각해보자)
-
-그래서, 평균절대편차, 분산, 표준편차, 중위절대 편차 등을 통해 변이를 추정합니다.
-
-### 평균절대편차(Average Absolute Deviation, Mean Absolute Deviation)
-
-대표값(평균)으로부터 관측값의 거리의 평균을 의미합니다.
-
-$ AAD = { \displaystyle\sum_{i=1}^{n} | x_i - \bar x | \over n } $
-
-### 분산(Variance)
-
-대표값으로부터 관측값의 거리를 제곱하고, 이것에 대한 평균을 취한 값입니다.  제곱을 취하기 때문에 원래값과 스케일이 다릅니다.
-
-$ S^2 = { \displaystyle\sum_{i=1}^{n} (x_i - \bar x)^2 \over n } $
-
-### 표준편차(Standard Deviation)
-
-분산을 제곱근을 취해서 원값과 같은 스케일이 되도록한 값입니다. 원값과 같은 스케일이기 때문에 해석이 좀 더 수월하다고 합니다.
-아래 수식에서 보듯이 좌변의 $S$는 Stardard Deviation을 의미하며, 분산의 $S^2$는 표준편차를 제곱값임을 의미합니다.
-
-$ S = \sqrt { \displaystyle\sum_{i=1}^{n} (x_i - \bar x)^2 \over n } $
-
-### 중위절대편차(Median Absolute Deviation, MAD)
-
-분산, 표준편차, 평균절대편차 등은 모두 평균을 사용하기 때문에 특이값에 대해 민감할 수 있습니다.  더욱이 분산은 제곱한 값을 사용하기 때문에 더욱 민감할 수 있습니다.  이런 경우에 중위절대편차를 사용합니다.
-
-$ MAD = median(|x_i - \tilde x|)$, where $\tilde x = median(x) $
-
-## 백분위수와 추정값
-
-편차를 이용한 변이추정외에도 백분위수를 이용해서 데이터의 퍼짐 정도를 볼 수 있습니다.  
-
-### 범위(Range)
-
-데이터가 정렬된 상태에서 가장 큰값과 가장 작은값을 보는 단순한 방법입니다만, 역시 특이값의 영향이 크기 때문에 많이 사용하지는 않습니다.  다만, 그런경우 상하위 백분위수에서 5번째, 95번째를 삭제하고 보는 방법도 있습니다.
-
-### 사분위범위(Interquantile Range, IQR)
-
-25번위 백분위수와 75번째 백분위수의 차이로부터 변이를 추정하는 방법입니다.
-
-이번에는 데이터의 퍼져있는 정도를 추정하는 방법에 대해서 살펴보았습니다.
-
-다음은 탐색적 데이터 분석의 꽃이라고 할 수 있는 데이터 분포와 시각화를 공부해보겠습니다.
-
-
+            <h1 id="변이-추정"><a href="#변이-추정" class="headerlink" title="변이 추정"></a>변이 추정</h1><p>변이는 영문으로는 Variability로 표시하며, 의미적으로는 데이터 들이 얼마나 밀집해있는지 퍼져있는 지를 나타내는 <strong>산포도(Disperson)</strong> 을 보여주는 값입니다.  이와 관련하여 아래의 개념들을 함께 사용됩니다.</p>
+<ul>
+<li>편차(Deviation): 관측값과 위치 추정값 사이의 차이.  모집단의 경우 <strong>오차(Error)</strong> 라고 표시하고, 표본의 경우 <strong>잔차(Residual)</strong> 로 사용하기도 한다.</li>
+<li>분산(Variance): 편차를 제곱한 값들의 평균.  동일한 의미로 <strong>평균 제곱 오차(Mean Square Error)</strong> 가 사용되기도 한다.</li>
+<li>표준편차(Standard Deviation): 분산에서 제곱근을 취한 값.  동일한 의미로 <strong>Root Mean Square Error</strong>로 사용되기도 한다.</li>
+<li>평균절대편차(Mean Absolute Deviation): 평균값과 편차의 절대값의 평균이다.  <strong>Average Absolute Deviation(AAD)</strong> 으로 불리기도 한다.</li>
+<li>중위절대편차(Median Absolute Deviation from the Median): 중간값과 </li>
+</ul>
+<blockquote>
+<p><strong>NOTE</strong> : 오차와 잔차<br>통계분야에서 오차(Error)는 모집단 내에서 대표값과 관측값의 차이를 말하고,<br>잔차(Residual)은 표본내에서 대표값과 관측값의 차이를 말한다.  그러나, 두 개의 용어는 다소 유의어처럼 섞여서 사용되는 경향이 있는 것으로 보인다.</p>
+</blockquote>
+<h2 id="표준편차와-추정값"><a href="#표준편차와-추정값" class="headerlink" title="표준편차와 추정값"></a>표준편차와 추정값</h2><p>편차는 ‘데이터가 평균으로 부터 얼마나 퍼져있는지’를 표현한다.  변이를 측정하는 방법은 이 편차들의 대표값을 추정하는 것이다.  참고로 <strong>평균</strong>과 같은 방법을 대표값으로 사용하면 양-음의 값이 상쇄되어 0이 되기 때문에 대표값으로 사용할수 없다. (편차의 의미를 생각해보자)</p>
+<p>그래서, 평균절대편차, 분산, 표준편차, 중위절대 편차 등을 통해 변이를 추정합니다.</p>
+<h3 id="평균절대편차-Average-Absolute-Deviation-Mean-Absolute-Deviation"><a href="#평균절대편차-Average-Absolute-Deviation-Mean-Absolute-Deviation" class="headerlink" title="평균절대편차(Average Absolute Deviation, Mean Absolute Deviation)"></a>평균절대편차(Average Absolute Deviation, Mean Absolute Deviation)</h3><p>대표값(평균)으로부터 관측값의 거리의 평균을 의미합니다.</p>
+<p>$ AAD = { \displaystyle\sum_{i=1}^{n} | x_i - \bar x | \over n } $</p>
+<h3 id="분산-Variance"><a href="#분산-Variance" class="headerlink" title="분산(Variance)"></a>분산(Variance)</h3><p>대표값으로부터 관측값의 거리를 제곱하고, 이것에 대한 평균을 취한 값입니다.  제곱을 취하기 때문에 원래값과 스케일이 다릅니다.</p>
+<p>$ S^2 = { \displaystyle\sum_{i=1}^{n} (x_i - \bar x)^2 \over n } $</p>
+<h3 id="표준편차-Standard-Deviation"><a href="#표준편차-Standard-Deviation" class="headerlink" title="표준편차(Standard Deviation)"></a>표준편차(Standard Deviation)</h3><p>분산을 제곱근을 취해서 원값과 같은 스케일이 되도록한 값입니다. 원값과 같은 스케일이기 때문에 해석이 좀 더 수월하다고 합니다.<br>아래 수식에서 보듯이 좌변의 $S$는 Stardard Deviation을 의미하며, 분산의 $S^2$는 표준편차를 제곱값임을 의미합니다.</p>
+<p>$ S = \sqrt { \displaystyle\sum_{i=1}^{n} (x_i - \bar x)^2 \over n } $</p>
+<h3 id="중위절대편차-Median-Absolute-Deviation-MAD"><a href="#중위절대편차-Median-Absolute-Deviation-MAD" class="headerlink" title="중위절대편차(Median Absolute Deviation, MAD)"></a>중위절대편차(Median Absolute Deviation, MAD)</h3><p>분산, 표준편차, 평균절대편차 등은 모두 평균을 사용하기 때문에 특이값에 대해 민감할 수 있습니다.  더욱이 분산은 제곱한 값을 사용하기 때문에 더욱 민감할 수 있습니다.  이런 경우에 중위절대편차를 사용합니다.</p>
+<p>$ MAD = median(|x_i - \tilde x|)$, where $\tilde x = median(x) $</p>
+<h2 id="백분위수와-추정값"><a href="#백분위수와-추정값" class="headerlink" title="백분위수와 추정값"></a>백분위수와 추정값</h2><p>편차를 이용한 변이추정외에도 백분위수를 이용해서 데이터의 퍼짐 정도를 볼 수 있습니다.  </p>
+<h3 id="범위-Range"><a href="#범위-Range" class="headerlink" title="범위(Range)"></a>범위(Range)</h3><p>데이터가 정렬된 상태에서 가장 큰값과 가장 작은값을 보는 단순한 방법입니다만, 역시 특이값의 영향이 크기 때문에 많이 사용하지는 않습니다.  다만, 그런경우 상하위 백분위수에서 5번째, 95번째를 삭제하고 보는 방법도 있습니다.</p>
+<h3 id="사분위범위-Interquantile-Range-IQR"><a href="#사분위범위-Interquantile-Range-IQR" class="headerlink" title="사분위범위(Interquantile Range, IQR)"></a>사분위범위(Interquantile Range, IQR)</h3><p>25번위 백분위수와 75번째 백분위수의 차이로부터 변이를 추정하는 방법입니다.</p>
+<p>이번에는 데이터의 퍼져있는 정도를 추정하는 방법에 대해서 살펴보았습니다.</p>
+<p>다음은 탐색적 데이터 분석의 꽃이라고 할 수 있는 데이터 분포와 시각화를 공부해보겠습니다.</p>
 
         </div>
         <footer class="article-footer">
@@ -240,7 +202,7 @@ $ MAD = median(|x_i - \tilde x|)$, where $\tilde x = median(x) $
 
 
 
-    <a data-url="https://vanang.github.io/2019/03/08/머신러닝을-위한-기초통계-탐색적-데이터-분석-변이추정/" data-id="cjszjsusp00022tx0ty1unyha" class="article-share-link"><i class="fa fa-share"></i>공유하기</a>
+    <a data-url="https://vanang.github.io/2019/03/08/머신러닝을-위한-기초통계-탐색적-데이터-분석-변이추정/" data-id="cjszlqqav00029zx0s9eaxn60" class="article-share-link"><i class="fa fa-share"></i>공유하기</a>
 <script>
     (function ($) {
         $('body').on('click', function() {
@@ -318,12 +280,10 @@ $ MAD = median(|x_i - \tilde x|)$, where $\tilde x = median(x) $
         "dateCreated": "2019-03-08",
         "dateModified": "2019-03-08",
         "url": "https://vanang.github.io/2019/03/08/머신러닝을-위한-기초통계-탐색적-데이터-분석-변이추정/",
-        "description": "
-# 변이 추정
+        "description": "변이 추정변이는 영문으로는 Variability로 표시하며, 의미적으로는 데이터 들이 얼마나 밀집해있는지 퍼져있는 지를 나타내는 산포도(Disperson) 을 보여주는 값입니다.  이와 관련하여 아래의 개념들을 함께 사용됩니다.
 
-변이는 영문으로는 Variability로 표시하며, 의미적으로는 데이터 들이 얼마나 밀집해있는지 퍼져있는 지를 나타내는 **산포도(Disperson)** 을 보여주는 값입니다.  이와 관련하여 아래의 개념들을 함께 사용됩니다.
-* 편차(Deviation): 관측값과 위치 추정값 사이의 차이.  모집단의 경우 **오차(Error)** 라고 "
-        "wordCount": 382
+편차(Deviation): 관측값과 위치 추정값 사이의 차이.  모집단의 경우 오차(Error) 라고 표시하고, 표본의 경우 잔"
+        "wordCount": 415
     }
 </script>
 
@@ -451,7 +411,7 @@ $ MAD = median(|x_i - \tilde x|)$, where $\tilde x = median(x) $
                             <a href="/2019/02/27/머신러닝을-위한-기초-통계-탐색적-데이터-분석-데이터-위치-추정/" class="thumbnail">
     
     
-        <span class="thumbnail-image thumbnail-none"></span>
+        <span style="background-image:url(http://res.heraldm.com/content/image/2012/08/30/20120830000011_0.jpg)" alt="머신러닝을 위한 기초 통계: 탐색적 데이터 분석 - 데이터 위치 추정" class="thumbnail-image"></span>
     
     
 </a>
